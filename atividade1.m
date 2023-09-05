@@ -75,6 +75,7 @@ function plotaGrafico(xl,xu,xTotalIter,fxTotalIter)
     set(gca, 'fontsize', 20);
     grid on;
     title(sprintf('Iteracoes: %i; f(%.6f) = %.6f', iter, xTotalIter(iter), fxTotalIter(iter)));
+    legend("f(x)= x^3 - 2*x^2 + x - 0.275","Ponto da raiz da função");
     pause(0.3);
   end
 endfunction
