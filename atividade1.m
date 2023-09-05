@@ -3,7 +3,7 @@
 %Resposta: 1,437 para uma tolerância de 10^−5
 function atividade1()
   clc;
-  xl=1.0;
+  xl=1;
   xu=1.5;
   contMax=1000;
   tolerancia=1e-5;
@@ -20,8 +20,9 @@ function [xr,xTotalIter,fxTotalIter]=bissecao(xl,xu,contMax,tolerancia)
   xTotalIter=zeros(contMax,1);
   fxTotalIter=zeros(contMax,1);
 ## Verifica se o intervalo esta na forma f(xl)f(xu) < 0
-  if funcao(xl)*funcao(xu) < 0
-
+  if funcao(xl)*funcao(xu) > 0
+    error("É possível que o intervalo não contenha a raiz");
+  endif
     for cont=1:contMax
     ##  Calculo da estimativa da raiz
         xr=(xl+xu)/2;
@@ -48,12 +49,7 @@ function [xr,xTotalIter,fxTotalIter]=bissecao(xl,xu,contMax,tolerancia)
         endif
         xrold=xr;
      endfor
-
      fprintf("A quantidade de interacoes foi: %5.5f",cont);
-   else
-     fprintf("O intervalo nao esta na forma de f (xl)f(xu) < 0");
-
-   endif
 
 endfunction
 
@@ -76,7 +72,7 @@ function plotaGrafico(xl,xu,xTotalIter,fxTotalIter)
     grid on;
     title(sprintf('Iteracoes: %i; f(%.6f) = %.6f', iter, xTotalIter(iter), fxTotalIter(iter)));
     legend("f(x)= x^3 - 2*x^2 + x - 0.275","Ponto da raiz da função");
-    pause(0.3);
+    pause(0.2);
   end
 endfunction
 
@@ -106,5 +102,4 @@ endfunction
 function z = funcao(x)
   z = x^3 - 2*x^2 + x - 0.275;
 end
-
 
