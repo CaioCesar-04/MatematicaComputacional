@@ -1,0 +1,37 @@
+function atvidade2()
+  maxInt = 100;
+  x0 = [1;1];
+  tol = 1e-5;
+  [todosX,cont]= newtonraphson(maxInt,x0,tol);
+endfunction
+
+function [todosX,cont]= newtonraphson(maxInt,x0,tol)
+
+  todosX = zeros(maxInt,2);
+  for cont = 1:maxInt
+    x1 = x0 - inv(jacobiano(x0))*sistem(x0)
+    todosX(cont,:) = x1;
+    if max(abs(x1-x0)) <= tol
+      break
+    endif
+    x0=x1;
+   
+  endfor
+  todosX = todosX(1:cont, :);
+ 
+endfunction
+
+function y = sistem(x0) 
+  x1 = x0(1);
+  x2 = x0(2);
+  y = [x1+x2-sqrt(x2)-0.25;...
+       8.*x1^2+16.*x2-8.*x1*x2-5];
+endfunction
+
+function j = jacobiano(x0)
+  x1 = x0(1);
+  x2 = x0(2);
+  dy = [1 , 1-1/(2.*sqrt(x2));
+        16*x1-8*x2, 16-8*x1 ]; 
+endfunction
+
