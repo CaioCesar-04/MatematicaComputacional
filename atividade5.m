@@ -9,8 +9,9 @@ if n>=m+1
    [a]=quadrados(x,y,m,n)
    A=a(:,1:(end-1));
    b=a(:,end);
-   x=A\b;
-   y=polinomio(xval,x)
+   coef=A\b;
+   f=polinomio(xval,coef);
+   [r,r2]=coeficientesR(x,y,coef)
 endif
 
 endfunction
@@ -35,6 +36,16 @@ for i=1:m+1
 endfor
  
 endfunction
+function [r,r2]=coeficientesR(x,y,coef)
+    st=0;
+    sr=0;
+    for cont = 1:length(x)
+      sr=sr+(y(cont)-polinomio(x(cont),coef))^2;
+      st=st+(y(cont)-mean(y))^2;
+    endfor
+    r2=(st-sr)/st;
+    r=sqrt(r2);
+endfunction
 
 function y=polinomio(xval,coef)
   y=0;
@@ -42,3 +53,11 @@ function y=polinomio(xval,coef)
     y=y+coef(i)*xval^(i-1);
   endfor
 endfunction
+  
+function plotGrafico(x,y,coef)
+  aux1=x(1):0.1:x(end);
+  aux2=zeros(size(aux1));
+  for
+    aux2(cont)=polinomio
+    endfor
+  endfunction
